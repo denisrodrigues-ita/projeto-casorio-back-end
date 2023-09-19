@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Engaged {
+  id         Int      @id @default(autoincrement())
+  groom_name String
+  bride_name String
+  email      String   @unique
+  active     Boolean  @default(true)
+  role       String
+  created_at DateTime @default(now())
+  update_at  DateTime @updatedAt
+  guests     Guests[]
+}
+
+model Guests {
+  id                Int      @id @default(autoincrement())
+  name              String
+  code              String   @unique
+  attendance_status Boolean  @default(false)
+  message           String   @default("")
+  engaged           Engaged  @relation(fields: [engaged_id], references: [id])
+  engaged_id        Int
+  created_at        DateTime @default(now())
+  update_at         DateTime @updatedAt
+}

@@ -6,3 +6,17 @@ export const createEngaged = async (data) => {
   });
   return engaged;
 };
+
+export const getEngaged = async () => {
+  const engaged = await prisma.engaged.findMany({});
+  return engaged;
+};
+
+export const getEngagedById = async (id) => {
+  const engaged = await prisma.engaged.findUnique({
+    where: {
+      id,
+    },
+  });
+  return engaged;
+}

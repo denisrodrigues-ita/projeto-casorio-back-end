@@ -13,7 +13,7 @@ model Engaged {
   bride_name String
   email      String   @unique
   active     Boolean  @default(true)
-  role       String
+  role       String   @default("client")
   created_at DateTime @default(now())
   update_at  DateTime @updatedAt
   guests     Guests[]

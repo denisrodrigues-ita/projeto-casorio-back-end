@@ -19,4 +19,14 @@ export const getEngagedById = async (id) => {
     },
   });
   return engaged;
-}
+};
+
+export const updateEngaged = async (id, data) => {
+  const engaged = await prisma.engaged.update({
+    where: {
+      id,
+    },
+    data,
+  });
+  return engaged;
+};

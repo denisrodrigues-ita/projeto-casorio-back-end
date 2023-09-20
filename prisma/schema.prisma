@@ -25,6 +25,7 @@ model Guests {
   code              String   @unique
   attendance_status Boolean  @default(false)
   message           String   @default("")
+  active            Boolean  @default(true)
   engaged           Engaged  @relation(fields: [engaged_id], references: [id])
   engaged_id        Int
   created_at        DateTime @default(now())

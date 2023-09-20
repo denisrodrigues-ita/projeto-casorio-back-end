@@ -5,7 +5,7 @@ CREATE TABLE "Engaged" (
     "bride_name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL DEFAULT true,
-    "role" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT 'client',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "update_at" TIMESTAMP(3) NOT NULL,
 
@@ -19,6 +19,7 @@ CREATE TABLE "Guests" (
     "code" TEXT NOT NULL,
     "attendance_status" BOOLEAN NOT NULL DEFAULT false,
     "message" TEXT NOT NULL DEFAULT '',
+    "active" BOOLEAN NOT NULL DEFAULT true,
     "engaged_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "update_at" TIMESTAMP(3) NOT NULL,

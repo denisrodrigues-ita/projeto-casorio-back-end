@@ -3,13 +3,15 @@ import {
   getGuestsController,
   getGuestByIdController,
   updateGuestController,
+  deleteGuestController,
 } from "../controllers/guests.controller";
 
 const guestsRouter = (app) => {
   app.post("/guests", createGuestController);
-  app.get("/guests", getGuestsController);
-  app.get("/guests/:id/:name", getGuestByIdController);
-  app.put("/guests/:id/:name", updateGuestController);
+  app.get("/guests/:engaged_id", getGuestsController);
+  app.get("/guests/:engaged_id/:name", getGuestByIdController);
+  app.put("/guests/:id", updateGuestController);
+  app.delete("/guests/:id", deleteGuestController);
 };
 
 export default guestsRouter;

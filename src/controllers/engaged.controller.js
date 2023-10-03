@@ -1,7 +1,7 @@
 import {
   createEngaged,
   getEngaged,
-  getEngagedById,
+  getEngagedByName,
   updateEngaged,
 } from "../repositorys/engaged.repository";
 import { engagedValidation } from "../validations/engaged.validations";
@@ -25,9 +25,9 @@ export const getEngagedController = async (req, res) => {
   }
 };
 
-export const getEngagedByIdController = async (req, res) => {
+export const getEngagedByNameController = async (req, res) => {
   try {
-    const engaged = await getEngagedById(Number(req.params.id));
+    const engaged = await getEngagedByName(req.params.name);
     res.status(200).send(engaged);
   } catch (error) {
     res.status(400).send(error);

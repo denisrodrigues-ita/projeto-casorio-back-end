@@ -12,12 +12,11 @@ export const getEngaged = async () => {
   return engaged;
 };
 
-export const getEngagedById = async (id) => {
-  const engaged = await prisma.engaged.findUnique({
-    where: {
-      id,
-    },
-  });
+export const getEngagedByName = async (name) => {
+  const engaged = await prisma.$queryRawUnsafe(
+    'SELECT * FROM "Engaged" WHERE (groom_name ILIKE $1 OR bride_name ILIKE $1)',
+    `%${name}%`
+  );
   return engaged;
 };
 

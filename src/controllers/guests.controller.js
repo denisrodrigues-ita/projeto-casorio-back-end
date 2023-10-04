@@ -40,7 +40,7 @@ export const getGuestByIdController = async (req, res) => {
 
 export const updateGuestController = async (req, res) => {
   try {
-    const guest = await updateGuest(Number(req.params.id), req.body);
+    const guest = await updateGuest(req.params.code, req.body);
     res.status(200).send(guest);
   } catch (error) {
     res.status(400).send(error);

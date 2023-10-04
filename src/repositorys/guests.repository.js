@@ -25,10 +25,10 @@ export const getGuestById = async (engaged_id, name) => {
   return guest;
 };
 
-export const updateGuest = async (id, data) => {
+export const updateGuest = async (code, data) => {
   const guest = await prisma.guests.update({
     where: {
-      id,
+      code,
     },
     data,
   });

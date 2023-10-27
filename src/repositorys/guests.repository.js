@@ -13,7 +13,21 @@ export const getGuests = async (engaged_id) => {
       engaged_id,
     },
   });
-  return guests;
+
+  const totalGuests = await prisma.guests.count({
+    where: {
+      engaged_id,
+    },
+  });
+
+  const attendanceCount = await prisma.guests.count({
+    where: {
+      engaged_id,
+      attendance_status: true,
+    },
+  });
+
+  return { guests, totalGuests, attendanceCount };
 };
 
 export const getGuestById = async (engaged_id, name) => {
@@ -42,4 +56,4 @@ export const deleteGuest = async (id) => {
     },
   });
   return guest;
-}
+};

@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "Engaged" (
     "id" SERIAL NOT NULL,
+    "password" TEXT NOT NULL,
     "groom_name" TEXT NOT NULL,
     "bride_name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -8,6 +9,7 @@ CREATE TABLE "Engaged" (
     "role" TEXT NOT NULL DEFAULT 'client',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "update_at" TIMESTAMP(3) NOT NULL,
+    "first_access" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "Engaged_pkey" PRIMARY KEY ("id")
 );

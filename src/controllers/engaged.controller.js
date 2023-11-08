@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import {
   createEngaged,
   getEngaged,
@@ -9,8 +10,12 @@ import { engagedValidation } from "../validations/engaged.validations";
 export const createEngagedController = async (req, res) => {
   try {
     await engagedValidation.validate(req.body);
+
     const engaged = await createEngaged(req.body);
-    res.status(200).send(engaged);
+
+    const { password, ...responseEngaged } = engaged;
+
+    res.status(200).send(responseEngaged);
   } catch (error) {
     res.status(400).send(error);
   }

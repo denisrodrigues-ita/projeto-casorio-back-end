@@ -13,6 +13,8 @@ export const findUserByEmail = async (email) => {
     return user;
   } catch (error) {
     throw new Error(error);
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
@@ -21,7 +23,6 @@ export const comparePasswords = async (password, hashedPassword) => {
 };
 
 export const authenticateUser = async (email, password) => {
-
   const user = await findUserByEmail(email);
 
   if (!user) {

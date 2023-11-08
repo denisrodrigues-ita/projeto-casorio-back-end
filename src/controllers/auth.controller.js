@@ -1,6 +1,6 @@
-import { authenticateUser } from '../repositorys/auth.repository';
-import { generateToken } from '../middleware/auth.middleware';
-import { authValidation } from '../validations/auth.validations';
+import { authenticateUser } from "../repositorys/auth.repository";
+import { generateToken } from "../middleware/auth.middleware";
+import { authValidation } from "../validations/auth.validations";
 
 export const authenticateUserController = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ export const authenticateUserController = async (req, res) => {
     const user = await authenticateUser(req.body.email, req.body.password);
 
     if (!user) {
-      return res.status(401).json({ message: 'Usuário ou senha incorreta' });
+      return res.status(401).json({ message: "Usuário ou senha incorreta" });
     }
 
     const token = generateToken({ userId: user.id, email: user.email });

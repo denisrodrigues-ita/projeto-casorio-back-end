@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import routes from "./routes";
+import { createFirstEngaged } from "./scripts/init";
 
 dotenv.config();
 
@@ -13,3 +14,5 @@ app.use(express.json());
 routes(app);
 
 app.listen(3001);
+
+createFirstEngaged();

@@ -2,41 +2,65 @@ import bcrypt from "bcrypt";
 import { prisma } from "../services/prisma";
 
 export const createEngaged = async (data) => {
-  const hashedPassword = await bcrypt.hash(data.password, 10);
+  try {
+    const hashedPassword = await bcrypt.hash(data.password, 10);
 
-  const engagedData = {
-    ...data,
-    password: hashedPassword,
-  };
+    const engagedData = {
+      ...data,
+      password: hashedPassword,
+    };
 
-  const engaged = await prisma.engaged.create({
-    data: engagedData,
-  });
+    const engaged = await prisma.engaged.create({
+      data: engagedData,
+    });
 
-  const { password, ...responseEngaged } = engaged;
+    const { password, ...responseEngaged } = engaged;
 
-  return responseEngaged;
+    return responseEngaged;
+  } catch (error) {
+    throw new Error(error);
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export const getEngaged = async () => {
-  const engaged = await prisma.engaged.findMany({});
-  return engaged;
+  try {
+    const engaged = await prisma.engaged.findMany({});
+    return engaged;
+  } catch (error) {
+    throw new Error(error);
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export const getEngagedByName = async (name) => {
-  const engaged = await prisma.$queryRawUnsafe(
-    'SELECT * FROM "Engaged" WHERE (groom_name ILIKE $1 OR bride_name ILIKE $1)',
-    `%${name}%`
-  );
-  return engaged;
+  try {
+    const engaged = await prisma.$queryRawUnsafe(
+      'SELECT * FROM "Engaged" WHERE (groom_name ILIKE $1 OR bride_name ILIKE $1)',
+      `%${name}%`
+    );
+    return engaged;
+  } catch (error) {
+    throw new Error(error);
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export const updateEngaged = async (id, data) => {
-  const engaged = await prisma.engaged.update({
-    where: {
-      id,
-    },
-    data,
-  });
-  return engaged;
+  try {
+    const engaged = await prisma.engaged.update({
+      where: {
+        id,
+      },
+      data,
+    });
+    return engaged;
+  } catch (error) {
+    throw new Error(error);
+  } finally {
+    await prisma.$disconnect();
+  }
 };

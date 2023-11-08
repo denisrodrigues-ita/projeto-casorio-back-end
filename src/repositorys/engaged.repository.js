@@ -1,10 +1,21 @@
+import bcrypt from "bcrypt";
 import { prisma } from "../services/prisma";
 
 export const createEngaged = async (data) => {
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+
+  const engagedData = {
+    ...data,
+    password: hashedPassword,
+  };
+
   const engaged = await prisma.engaged.create({
-    data,
+    data: engagedData,
   });
-  return engaged;
+
+  const { password, ...responseEngaged } = engaged;
+
+  return responseEngaged;
 };
 
 export const getEngaged = async () => {

@@ -8,12 +8,26 @@ export const generateToken = (user) => {
 };
 
 export const verifyToken = (token) => {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(decoded);
-    });
-  });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return decoded;
+  } catch (error) {
+    throw new Error("Token inválido");
+  }
+};
+
+export const authenticateToken = (req, res, next) => {
+  const token = req.header("Authorization");
+
+  if (!token) {
+    return res.status(401).json({ message: "Token não fornecido" });
+  }
+
+  try {
+    const decoded = verifyToken(token);
+    req.user = decoded.user;
+    next();
+  } catch (error) {
+    return res.status(403).json({ message: "Token inválido" });
+  }
 };

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const generateToken = (user) => {
   const token = jwt.sign(user, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: "8h",
   });
   return token;
 };
@@ -17,13 +17,25 @@ export const verifyToken = (token) => {
 };
 
 export const authenticateToken = (req, res, next) => {
-  const token = req.header("Authorization");
-
-  if (!token) {
-    return res.status(401).json({ message: "Token não fornecido" });
-  }
-
   try {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      return res.status(401).json({ message: "Token não fornecido" });
+    }
+
+    const parts = authorization.split(" ");
+
+    if (parts.length !== 2) {
+      return res.status(401).json({ message: "Token inválido" });
+    }
+
+    const [scheme, token] = parts;
+
+    if (!/^Bearer$/i.test(scheme)) {
+      return res.status(401).json({ message: "Token mal formatado" });
+    }
+
     const decoded = verifyToken(token);
     req.user = decoded.user;
     next();

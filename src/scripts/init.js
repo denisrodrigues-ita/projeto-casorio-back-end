@@ -19,7 +19,6 @@ export const createFirstEngaged = async () => {
         },
       });
 
-      console.log("Primeiro Engaged criado:", firstEngaged);
     }
   } catch (error) {
     console.error("Erro ao criar o primeiro Engaged:", error);

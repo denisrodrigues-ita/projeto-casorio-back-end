@@ -1,4 +1,7 @@
-import { authenticateUser } from "../repositorys/auth.repository";
+import {
+  authenticateUser,
+  userVerification,
+} from "../repositorys/auth.repository";
 import { generateToken } from "../middleware/auth.middleware";
 import { authValidation } from "../validations/auth.validations";
 
@@ -14,6 +17,15 @@ export const authenticateUserController = async (req, res) => {
 
     const token = generateToken({ userId: user.id, email: user.email });
 
+    res.status(200).json({ token, user });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+export const userVerificationController = async (req, res) => {
+  try {
+    const { user, token } = await userVerification(req);
     res.status(200).json({ token, user });
   } catch (error) {
     res.status(400).send(error);

@@ -8,7 +8,7 @@ import {
 import { authenticateToken } from "../middleware/auth.middleware";
 
 const guestsRouter = (app) => {
-  app.post("/guests", authenticateToken, createGuestController);
+  app.post("/guests", createGuestController);
   app.get("/guests/:engaged_id", getGuestsController);
   app.get("/guests/:engaged_id/:name", getGuestByIdController);
   app.put("/guests/:code", updateGuestController);

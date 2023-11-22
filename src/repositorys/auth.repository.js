@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { verifyToken } from "../middleware/auth.middleware";
-import bcrypt from "bcrypt";
+import { comparePasswords } from "../utils";
 
 const prisma = new PrismaClient();
 
@@ -17,10 +17,6 @@ export const findUserByEmail = async (email) => {
   } finally {
     await prisma.$disconnect();
   }
-};
-
-export const comparePasswords = async (password, hashedPassword) => {
-  return await bcrypt.compare(password, hashedPassword);
 };
 
 export const authenticateUser = async (email, password) => {
@@ -56,8 +52,6 @@ export const userVerification = async (req, res) => {
     }
 
     const [scheme, token] = parts;
-
-    console.log(token)
 
     if (!/^Bearer$/i.test(scheme)) {
       return res.status(401).json({ message: "Token mal formatado" });

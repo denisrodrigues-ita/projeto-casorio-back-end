@@ -83,6 +83,10 @@ export const updateEngagedPassword = async (
       throw new Error("Usuário não encontrado");
     }
 
+    if (password === newPassword) {
+      throw new Error("A nova senha não pode ser igual a senha atual");
+    }
+
     if (newPassword !== confirmPassword) {
       throw new Error("As senhas não coincidem");
     }
@@ -101,6 +105,7 @@ export const updateEngagedPassword = async (
       },
       data: {
         password: hashedPassword,
+        first_access: false,
       },
     });
 

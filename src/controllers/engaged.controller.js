@@ -3,6 +3,7 @@ import {
   getEngaged,
   getEngagedByName,
   updateEngaged,
+  updateEngagedPassword,
 } from "../repositorys/engaged.repository";
 import { engagedValidation } from "../validations/engaged.validations";
 
@@ -41,6 +42,20 @@ export const getEngagedByNameController = async (req, res) => {
 export const updateEngagedController = async (req, res) => {
   try {
     const engaged = await updateEngaged(Number(req.params.id), req.body);
+    res.status(200).send(engaged);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+export const updateEngagedPasswordController = async (req, res) => {
+  try {
+    const engaged = await updateEngagedPassword(
+      Number(req.params.id),
+      req.body.password,
+      req.body.newPassword,
+      req.body.confirmPassword
+    );
     res.status(200).send(engaged);
   } catch (error) {
     res.status(400).send(error);

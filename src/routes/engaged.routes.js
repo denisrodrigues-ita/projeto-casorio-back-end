@@ -5,13 +5,14 @@ import {
   updateEngagedController,
   updateEngagedPasswordController,
 } from "../controllers/engaged.controller";
+import { authenticateToken } from "../middleware/auth.middleware";
 
 const engagedRouter = (app) => {
   app.post("/engaged", createEngagedController);
   app.get("/engaged", getEngagedController);
   app.get("/engaged/:name", getEngagedByNameController);
   app.put("/engaged/:id", updateEngagedController);
-  app.put("/engaged/password/:id", updateEngagedPasswordController);
+  app.put("/engaged/password/change", authenticateToken, updateEngagedPasswordController);
 };
 
 export default engagedRouter;

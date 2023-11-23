@@ -9,7 +9,8 @@ export const generateToken = (user) => {
 
 export const verifyToken = (token) => {
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const formatedToken = token?.replace(/["']/g, "");
+    const decoded = jwt.verify(formatedToken, process.env.JWT_SECRET);
     return decoded;
   } catch (error) {
     throw new Error("Token inválido");
@@ -24,20 +25,20 @@ export const authenticateToken = (req, res, next) => {
       return res.status(401).json({ message: "Token não fornecido" });
     }
 
-    const parts = authorization.split(" ");
+    const tokenParts = authorization.split(" ");
 
-    if (parts.length !== 2) {
+    if (tokenParts.length !== 2 || tokenParts[0].toLowerCase() !== "bearer") {
       return res.status(401).json({ message: "Token inválido" });
     }
 
-    const [scheme, token] = parts;
+    const token = tokenParts[1];
+    const decoded = verifyToken(token);
 
-    if (!/^Bearer$/i.test(scheme)) {
-      return res.status(401).json({ message: "Token mal formatado" });
+    if (!decoded) {
+      return res.status(403).json({ message: "Token inválido" });
     }
 
-    const decoded = verifyToken(token);
-    req.user = decoded.user;
+    req.userData = decoded;
     next();
   } catch (error) {
     return res.status(403).json({ message: "Token inválido" });

@@ -50,12 +50,7 @@ export const updateEngagedController = async (req, res) => {
 
 export const updateEngagedPasswordController = async (req, res) => {
   try {
-    const engaged = await updateEngagedPassword(
-      Number(req.params.id),
-      req.body.password,
-      req.body.newPassword,
-      req.body.confirmPassword
-    );
+    const engaged = await updateEngagedPassword(req, res);
     res.status(200).send(engaged);
   } catch (error) {
     res.status(400).send(error);

@@ -8,7 +8,7 @@ import {
 import { authenticateToken } from "../middleware/auth.middleware";
 
 const engagedRouter = (app) => {
-  app.post("/engaged", createEngagedController);
+  app.post("/engaged", authenticateToken, createEngagedController);
   app.get("/engaged", getEngagedController);
   app.get("/engaged/:name", getEngagedByNameController);
   app.put("/engaged/:id", updateEngagedController);

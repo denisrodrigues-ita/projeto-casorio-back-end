@@ -9,15 +9,24 @@ import { engagedValidation } from "../validations/engaged.validations";
 
 export const createEngagedController = async (req, res) => {
   try {
-    await engagedValidation.validate(req.body);
+    const { groomName, brideName, password, confirmPassword, email } =
+      req.body.engaged;
+
+    await engagedValidation.validate({
+      groomName,
+      brideName,
+      password,
+      confirmPassword,
+      email,
+    });
 
     const engaged = await createEngaged(req.body);
 
-    const { password, ...responseEngaged } = engaged;
+    const { password: engagedPassword, ...responseEngaged } = engaged;
 
     res.status(200).send(responseEngaged);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send({ error: error.message });
   }
 };
 

@@ -1,18 +1,29 @@
-import bcrypt from "bcrypt";
 import { comparePasswords, hashPasswordBcrypt } from "../utils";
 import { prisma } from "../services/prisma";
 
 export const createEngaged = async (data) => {
   try {
-    const hashedPassword = await hashPasswordBcrypt(data.password);
+    
+    if (data.engaged.password !== data.engaged.confirmPassword) {
+      throw new Error("As senhas não coincidem");
+    }
+
+    const hashedPassword = await hashPasswordBcrypt(data.engaged.password);
 
     const engagedData = {
-      ...data,
+      ...data.engaged,
       password: hashedPassword,
     };
 
+    delete engagedData.confirmPassword;
+
     const engaged = await prisma.engaged.create({
-      data: engagedData,
+      data: {
+        bride_name: engagedData.brideName,
+        groom_name: engagedData.groomName,
+        email: engagedData.email,
+        password: engagedData.password,
+      },
     });
 
     const { password, ...responseEngaged } = engaged;
@@ -71,7 +82,6 @@ export const updateEngagedPassword = async (req) => {
     const password = req.body.password;
     const newPassword = req.body.newPassword;
     const confirmPassword = req.body.confirmPassword;
-
     const id = req.userData.userId;
 
     const engaged = await prisma.engaged.findUnique({

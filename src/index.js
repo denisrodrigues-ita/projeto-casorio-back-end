@@ -16,3 +16,5 @@ routes(app);
 app.listen(3001);
 
 createFirstEngaged();
+
+export default app;

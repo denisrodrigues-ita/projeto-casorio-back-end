@@ -8,15 +8,17 @@ datasource db {
 }
 
 model Engaged {
-  id         Int      @id @default(autoincrement())
-  groom_name String
-  bride_name String
-  email      String   @unique
-  active     Boolean  @default(true)
-  role       String   @default("client")
-  created_at DateTime @default(now())
-  update_at  DateTime @updatedAt
-  guests     Guests[]
+  id           Int      @id @default(autoincrement())
+  password     String
+  groom_name   String
+  bride_name   String
+  email        String   @unique
+  active       Boolean  @default(true)
+  role         String   @default("client")
+  created_at   DateTime @default(now())
+  update_at    DateTime @updatedAt
+  first_access Boolean  @default(true)
+  guests       Guests[]
 }
 
 model Guests {

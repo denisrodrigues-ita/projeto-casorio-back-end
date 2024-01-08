@@ -47,20 +47,6 @@ export const getEngaged = async () => {
   }
 };
 
-export const getEngagedByName = async (name) => {
-  try {
-    const engaged = await prisma.$queryRawUnsafe(
-      'SELECT * FROM "Engaged" WHERE (groom_name ILIKE $1 OR bride_name ILIKE $1)',
-      `%${name}%`
-    );
-    return engaged;
-  } catch (error) {
-    throw new Error(error);
-  } finally {
-    await prisma.$disconnect();
-  }
-};
-
 export const updateEngaged = async (id, data) => {
   try {
     const engaged = await prisma.engaged.update({

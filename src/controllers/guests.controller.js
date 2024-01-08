@@ -10,7 +10,9 @@ import { guestsValidation } from "../validations/guests.validations";
 export const createGuestController = async (req, res) => {
   try {
     await guestsValidation.validate(req.body);
+
     const guest = await createGuest(req.body);
+
     res.status(200).send(guest);
   } catch (error) {
     res.status(400).send(error);

@@ -1,14 +1,8 @@
 {
-  "version": 2,
-  "functions": {
-    "api": {
-      "handler": "src/routes/index.handler",
-      "runtime": "nodejs14.x"
+    "framework": "nodejs",
+    "target": "server",
+    "pages": ["index.js"],
+    "proxy": {
+      "/api/*": "http://localhost:3000"
     }
-  },
-  "routes": [
-    { "src": "/api/auth", "dest": "src/routes/auth.routes.js" },
-    { "src": "/api/engaged", "dest": "src/routes/engaged.routes.js" },
-    { "src": "/api/guests", "dest": "src/routes/guests.routes.js" }
-  ]
-}
+  }

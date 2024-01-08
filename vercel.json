@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "builds": [{ "src": "index.js", "use": "@now/node" }],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "index.js"
+  "functions": {
+    "api": {
+      "handler": "src/routes/index.handler",
+      "runtime": "nodejs14.x"
     }
+  },
+  "routes": [
+    { "src": "/api/auth", "dest": "src/routes/auth.routes.js" },
+    { "src": "/api/engaged", "dest": "src/routes/engaged.routes.js" },
+    { "src": "/api/guests", "dest": "src/routes/guests.routes.js" }
   ]
 }

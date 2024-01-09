@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { verifyToken } from "../middleware/auth.middleware";
-import { comparePasswords } from "../utils";
+import { verifyToken } from "../middleware/auth.middleware.js";
+import { comparePasswords } from "../utils/index.js";
 
 const prisma = new PrismaClient();
 

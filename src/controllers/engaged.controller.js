@@ -3,8 +3,8 @@ import {
   getEngaged,
   updateEngaged,
   updateEngagedPassword,
-} from "../repositorys/engaged.repository";
-import { engagedValidation } from "../validations/engaged.validations";
+} from "../repositorys/engaged.repository.js";
+import { engagedValidation } from "../validations/engaged.validations.js";
 
 export const createEngagedController = async (req, res) => {
   try {

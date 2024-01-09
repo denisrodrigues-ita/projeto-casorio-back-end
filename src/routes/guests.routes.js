@@ -4,8 +4,8 @@ import {
   getGuestByIdController,
   updateGuestController,
   deleteGuestController,
-} from "../controllers/guests.controller";
-import { authenticateToken } from "../middleware/auth.middleware";
+} from "../controllers/guests.controller.js";
+import { authenticateToken } from "../middleware/auth.middleware.js";
 
 const guestsRouter = (app) => {
   app.post("/guests", authenticateToken, createGuestController);

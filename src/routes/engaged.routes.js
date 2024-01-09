@@ -3,8 +3,8 @@ import {
   getEngagedController,
   updateEngagedController,
   updateEngagedPasswordController,
-} from "../controllers/engaged.controller";
-import { authenticateToken } from "../middleware/auth.middleware";
+} from "../controllers/engaged.controller.js";
+import { authenticateToken } from "../middleware/auth.middleware.js";
 
 const engagedRouter = (app) => {
   app.post("/engaged", authenticateToken, createEngagedController);

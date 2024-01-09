@@ -1,8 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import routes from "./routes";
-import { createFirstEngaged } from "./scripts/init";
+// import routeHandlers from './routes/index';
+// import routes from "./routes";
+import routes from "./routes/index.js";
+import { createFirstEngaged } from "./scripts/init.js";
 
 dotenv.config();
 
@@ -13,6 +15,10 @@ app.use(express.json());
 
 routes(app);
 
-app.listen(3001);
+app.listen(process.env.PORT || 3001, () => {
+    console.log(`Server listening on port ${process.env.PORT || 3001}`);
+});
 
 createFirstEngaged();
+
+export default app;

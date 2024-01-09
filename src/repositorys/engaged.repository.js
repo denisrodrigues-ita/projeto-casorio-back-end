@@ -1,5 +1,5 @@
-import { comparePasswords, hashPasswordBcrypt } from "../utils";
-import { prisma } from "../services/prisma";
+import { comparePasswords, hashPasswordBcrypt } from "../utils/index.js";
+import { prisma } from "../services/prisma.js";
 
 export const createEngaged = async (data) => {
   try {

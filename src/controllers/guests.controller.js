@@ -4,8 +4,8 @@ import {
   getGuestById,
   updateGuest,
   deleteGuest,
-} from "../repositorys/guests.repository";
-import { guestsValidation } from "../validations/guests.validations";
+} from "../repositorys/guests.repository.js";
+import { guestsValidation } from "../validations/guests.validations.js";
 
 export const createGuestController = async (req, res) => {
   try {

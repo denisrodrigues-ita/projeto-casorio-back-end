@@ -1,7 +1,7 @@
 import {
   authenticateUserController,
   userVerificationController,
-} from "../controllers/auth.controller";
+} from "../controllers/auth.controller.js";
 
 const authRouter = (app) => {
   app.post("/authenticate", authenticateUserController);

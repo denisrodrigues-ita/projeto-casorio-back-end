@@ -1,9 +1,9 @@
 import {
   authenticateUser,
   userVerification,
-} from "../repositorys/auth.repository";
-import { generateToken } from "../middleware/auth.middleware";
-import { authValidation } from "../validations/auth.validations";
+} from "../repositorys/auth.repository.js";
+import { generateToken } from "../middleware/auth.middleware.js";
+import { authValidation } from "../validations/auth.validations.js";
 
 export const authenticateUserController = async (req, res) => {
   try {

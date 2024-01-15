@@ -42,21 +42,6 @@ export const getGuests = async (engaged_id) => {
   }
 };
 
-export const getGuestById = async (engaged_id, name) => {
-  try {
-    const guest = await prisma.$queryRawUnsafe(
-      'SELECT * FROM "Guests" WHERE (engaged_id = $1 AND name ILIKE $2)',
-      engaged_id,
-      `%${name}%`
-    );
-    return guest;
-  } catch (error) {
-    throw new Error(error);
-  } finally {
-    await prisma.$disconnect();
-  }
-};
-
 export const updateGuest = async (code, data) => {
   try {
     const guest = await prisma.guests.update({

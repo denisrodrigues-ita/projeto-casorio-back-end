@@ -1,7 +1,6 @@
 import {
   createGuest,
   getGuests,
-  getGuestById,
   updateGuest,
   deleteGuest,
 } from "../repositorys/guests.repository.js";
@@ -28,18 +27,6 @@ export const getGuestsController = async (req, res) => {
   }
 };
 
-export const getGuestByIdController = async (req, res) => {
-  try {
-    const guest = await getGuestById(
-      Number(req.params.engaged_id),
-      req.params.name
-    );
-    res.status(200).send(guest);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
-
 export const updateGuestController = async (req, res) => {
   try {
     const guest = await updateGuest(req.params.code, req.body);
@@ -51,8 +38,9 @@ export const updateGuestController = async (req, res) => {
 
 export const deleteGuestController = async (req, res) => {
   try {
-    await deleteGuest(Number(req.params.id));
-    res.status(200).send("user deleted");
+    const guest = await deleteGuest(Number(req.params.id));
+
+    res.status(200).send(guest);
   } catch (error) {
     res.status(400).send(error);
   }

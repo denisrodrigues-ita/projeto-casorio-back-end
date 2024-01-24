@@ -3,7 +3,6 @@ import { prisma } from "../services/prisma.js";
 
 export const createEngaged = async (data) => {
   try {
-    
     if (data.engaged.password !== data.engaged.confirmPassword) {
       throw new Error("As senhas não coincidem");
     }
@@ -38,7 +37,20 @@ export const createEngaged = async (data) => {
 
 export const getEngaged = async () => {
   try {
-    const engaged = await prisma.engaged.findMany({});
+    const engaged = await prisma.engaged.findMany({
+      select: {
+        active: true,
+        bride_name: true,
+        created_at: true,
+        email: true,
+        first_access: true,
+        update_at: true,
+        groom_name: true,
+        id: true,
+        role: true,
+      },
+    });
+
     return engaged;
   } catch (error) {
     throw new Error(error);

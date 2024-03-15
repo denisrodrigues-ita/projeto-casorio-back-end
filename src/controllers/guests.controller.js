@@ -32,7 +32,7 @@ export const updateGuestController = async (req, res) => {
     const guest = await updateGuest(req.params.code, req.body);
     res.status(200).send(guest);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send({ message: "Código inválido.", error: error.message });
   }
 };
 

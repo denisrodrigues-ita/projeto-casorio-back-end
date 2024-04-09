@@ -13,12 +13,21 @@ export const createGuest = async (data) => {
   }
 };
 
-export const getGuests = async (engaged_id) => {
+export const getGuests = async (engaged_id, sort, asc) => {
   try {
+    let orderBy = {};
+
+    if (sort) {
+      orderBy = {
+        [sort]: asc,
+      };
+    }
+
     const guests = await prisma.guests.findMany({
       where: {
         engaged_id,
       },
+      orderBy,
     });
 
     const totalGuests = await prisma.guests.count({
@@ -36,6 +45,7 @@ export const getGuests = async (engaged_id) => {
 
     return { guests, totalGuests, attendanceCount };
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   } finally {
     await prisma.$disconnect();

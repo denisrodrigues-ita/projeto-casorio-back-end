@@ -23,7 +23,7 @@ export const authenticateUserController = async (req, res) => {
   }
 };
 
-export const userVerificationController = async (req, res) => {
+export const userVerificationController = async (req, res) => {;
   try {
     const { user, token } = await userVerification(req);
     res.status(200).json({ token, user });

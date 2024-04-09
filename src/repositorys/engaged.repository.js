@@ -49,6 +49,9 @@ export const getEngaged = async () => {
         id: true,
         role: true,
       },
+      orderBy: {
+        groom_name: "asc",
+      }
     });
 
     return engaged;
@@ -79,8 +82,8 @@ export const updateEngagedPassword = async (req) => {
   try {
     const password = req.body.password;
     const newPassword = req.body.newPassword;
-    const confirmPassword = req.body.confirmPassword;
-    const id = req.userData.userId;
+    const confirmPassword = req.body.newConfirmPassword;
+    const id = req.body.id;
 
     const engaged = await prisma.engaged.findUnique({
       where: {

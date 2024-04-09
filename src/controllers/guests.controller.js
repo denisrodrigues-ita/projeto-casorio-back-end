@@ -19,8 +19,10 @@ export const createGuestController = async (req, res) => {
 };
 
 export const getGuestsController = async (req, res) => {
+  const { sort, asc } = req.query;
+  const { engaged_id } = req.params;
   try {
-    const guests = await getGuests(Number(req.params.engaged_id));
+    const guests = await getGuests(Number(engaged_id), sort, asc);
     res.status(200).send(guests);
   } catch (error) {
     res.status(400).send(error);

@@ -4,7 +4,10 @@ import langErrors from "../lang/index.js";
 export const createGuest = async (data) => {
   try {
     const guest = await prisma.guests.create({
-      data,
+      data: {
+        ...data,
+        name: data.name.toLowerCase().trim(),
+      }
     });
     return guest;
   } catch (error) {

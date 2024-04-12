@@ -10,6 +10,7 @@ CREATE TABLE "Engaged" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "update_at" TIMESTAMP(3) NOT NULL,
     "first_access" BOOLEAN NOT NULL DEFAULT true,
+    "end_date" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Engaged_pkey" PRIMARY KEY ("id")
 );

@@ -1,7 +1,8 @@
-import { comparePasswords, hashPasswordBcrypt } from "../utils/index.js";
+import { comparePasswords, hashPasswordBcrypt, formatDateToISO } from "../utils/index.js";
 import { prisma } from "../services/prisma.js";
 
 export const createEngaged = async (data) => {
+  const [day, month, year] = data.engaged.end_date.split("/");
   try {
     if (data.engaged.password !== data.engaged.confirmPassword) {
       throw new Error("As senhas não coincidem");
@@ -16,12 +17,15 @@ export const createEngaged = async (data) => {
 
     delete engagedData.confirmPassword;
 
+    console.log(formatDateToISO(engagedData.end_date))
+
     const engaged = await prisma.engaged.create({
       data: {
         bride_name: engagedData.brideName,
         groom_name: engagedData.groomName,
         email: engagedData.email,
         password: engagedData.password,
+        end_date: formatDateToISO(engagedData.end_date),
       },
     });
 
@@ -48,6 +52,7 @@ export const getEngaged = async () => {
         groom_name: true,
         id: true,
         role: true,
+        end_date: true
       },
       orderBy: {
         groom_name: "asc",

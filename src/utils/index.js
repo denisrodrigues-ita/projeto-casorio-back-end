@@ -22,5 +22,14 @@ export const hashPasswordBcrypt = async (password) => {
 };
 
 export const capitalizeFirstLetters = (text) => {
-  return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-}
+  return text
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
+export const formatDateToISO = (dateString) => {
+  const [day, month, year] = dateString.split("/");
+
+  return new Date(year, month - 1, day);
+};

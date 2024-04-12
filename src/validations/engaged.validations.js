@@ -6,4 +6,5 @@ export const engagedValidation = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required(),
   confirmPassword: yup.string().required(),
+  end_date: yup.string().required(),
 });

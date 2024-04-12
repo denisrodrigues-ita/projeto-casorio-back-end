@@ -4,6 +4,7 @@ import {
   updateGuest,
   deleteGuest,
 } from "../repositorys/guests.repository.js";
+import langErrors from "../lang/index.js";
 import { guestsValidation } from "../validations/guests.validations.js";
 
 export const createGuestController = async (req, res) => {
@@ -34,7 +35,12 @@ export const updateGuestController = async (req, res) => {
     const guest = await updateGuest(req.params.code, req.body);
     res.status(200).send(guest);
   } catch (error) {
-    res.status(400).send({ message: "Código inválido.", error: error.message });
+    console.log(error.message);
+    if (error.message === `Error: ${langErrors.dataLimite}`) {
+      res.status(400).send({ message: langErrors.dataLimite });
+    } else {
+      res.status(400).send({ message: "Código inválido." });
+    }
   }
 };
 

@@ -8,7 +8,7 @@ import { engagedValidation } from "../validations/engaged.validations.js";
 
 export const createEngagedController = async (req, res) => {
   try {
-    const { groomName, brideName, password, confirmPassword, email } =
+    const { groomName, brideName, password, confirmPassword, email, end_date } =
       req.body.engaged;
 
     await engagedValidation.validate({
@@ -17,6 +17,7 @@ export const createEngagedController = async (req, res) => {
       password,
       confirmPassword,
       email,
+      end_date,
     });
 
     const engaged = await createEngaged(req.body);
@@ -25,6 +26,7 @@ export const createEngagedController = async (req, res) => {
 
     res.status(200).send(responseEngaged);
   } catch (error) {
+    console.log(error);
     res.status(400).send({ error: error.message });
   }
 };

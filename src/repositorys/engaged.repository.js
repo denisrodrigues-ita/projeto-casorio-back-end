@@ -17,8 +17,6 @@ export const createEngaged = async (data) => {
 
     delete engagedData.confirmPassword;
 
-    console.log(formatDateToISO(engagedData.end_date))
-
     const engaged = await prisma.engaged.create({
       data: {
         bride_name: engagedData.brideName,

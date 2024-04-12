@@ -35,7 +35,6 @@ export const updateGuestController = async (req, res) => {
     const guest = await updateGuest(req.params.code, req.body);
     res.status(200).send(guest);
   } catch (error) {
-    console.log(error.message);
     if (error.message === `Error: ${langErrors.dataLimite}`) {
       res.status(400).send({ message: langErrors.dataLimite });
     } else {

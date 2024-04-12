@@ -77,7 +77,7 @@ export const updateGuest = async (code, data) => {
         OR: [
           {
             AND: [
-              { name: code },
+              { name: code.toLowerCase().trim() },
               { engaged_id: parseInt(data.engaged_id) || 0 },
             ],
           },

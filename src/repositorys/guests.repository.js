@@ -45,7 +45,6 @@ export const getGuests = async (engaged_id, sort, asc) => {
 
     return { guests, totalGuests, attendanceCount };
   } catch (error) {
-    console.log(error);
     throw new Error(error);
   } finally {
     await prisma.$disconnect();
@@ -54,12 +53,24 @@ export const getGuests = async (engaged_id, sort, asc) => {
 
 export const updateGuest = async (code, data) => {
   try {
+    const findGuest = await prisma.guests.findFirst({
+      where: {
+        OR: [
+          { AND: [{ name: code }, { engaged_id: parseInt(data.engaged_id) }] },
+          { code },
+        ],
+      },
+    });
+
     const guest = await prisma.guests.update({
       where: {
-        code,
+        id: findGuest.id,
       },
-      data,
+      data: {
+        attendance_status: data.attendance_status,
+      },
     });
+
     return guest;
   } catch (error) {
     throw new Error(error);

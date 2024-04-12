@@ -26,7 +26,6 @@ export const createEngagedController = async (req, res) => {
 
     res.status(200).send(responseEngaged);
   } catch (error) {
-    console.log(error);
     res.status(400).send({ error: error.message });
   }
 };

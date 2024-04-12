@@ -8,7 +8,7 @@ export const createFirstEngaged = async () => {
     const engagedCount = await prisma.engaged.count();
 
     if (engagedCount === 0) {
-      const firstEngaged = await prisma.engaged.create({
+      await prisma.engaged.create({
         data: {
           password: await bcrypt.hash("111111", 10),
           groom_name: "Denis Rodrigues dos Santos",
@@ -16,6 +16,7 @@ export const createFirstEngaged = async () => {
           email: "denisrodrigues.ita@gmail.com",
           active: true,
           role: "admin",
+          end_date: new Date(2100, 1, 1),
         },
       });
 

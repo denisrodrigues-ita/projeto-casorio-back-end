@@ -18,6 +18,7 @@ model Engaged {
   created_at   DateTime @default(now())
   update_at    DateTime @updatedAt
   first_access Boolean  @default(true)
+  end_date     DateTime
   guests       Guests[]
 }
 

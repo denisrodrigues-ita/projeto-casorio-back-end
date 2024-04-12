@@ -52,11 +52,12 @@ export const getGuests = async (engaged_id, sort, asc) => {
 };
 
 export const updateGuest = async (code, data) => {
+  console.log(data, code)
   try {
     const findGuest = await prisma.guests.findFirst({
       where: {
         OR: [
-          { AND: [{ name: code }, { engaged_id: parseInt(data.engaged_id) }] },
+          { AND: [{ name: code }, { engaged_id: parseInt(data.engaged_id) || 0 }] },
           { code },
         ],
       },
@@ -73,6 +74,7 @@ export const updateGuest = async (code, data) => {
 
     return guest;
   } catch (error) {
+    console.log(error)
     throw new Error(error);
   } finally {
     await prisma.$disconnect();

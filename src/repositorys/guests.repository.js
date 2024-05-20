@@ -86,13 +86,12 @@ export const updateGuest = async (code, data) => {
       },
     });
 
+    console.log(data)
     const guest = await prisma.guests.update({
       where: {
         id: findGuest.id,
       },
-      data: {
-        attendance_status: data.attendance_status,
-      },
+      data,
     });
 
     return guest;

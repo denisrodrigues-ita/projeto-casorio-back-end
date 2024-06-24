@@ -7,7 +7,7 @@ export const createGuest = async (data) => {
       data: {
         ...data,
         name: data.name.toLowerCase().trim(),
-      }
+      },
     });
     return guest;
   } catch (error) {
@@ -86,13 +86,19 @@ export const updateGuest = async (code, data) => {
       },
     });
 
+    if (data.engaged_id) {
+      data = {
+        attendance_status: data.attendance_status,
+      };
+    } else {
+      data = data;
+    }
+
     const guest = await prisma.guests.update({
       where: {
         id: findGuest.id,
       },
-      data: {
-        attendance_status: data.attendance_status,
-      }
+      data,
     });
 
     return guest;
